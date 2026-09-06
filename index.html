@@ -95,13 +95,14 @@ footer p{margin:0 0 5px}
   <!-- ENQUANTO O BINARIO NAO FOR ASSINADO, o sistema barra o primeiro
        arranque. Esconder isso nao evita o problema -- so faz o comprador achar
        que baixou algo quebrado. Quando houver assinatura, apague este bloco. -->
-  <p class="detalhe">macOS: na primeira vez, clique com o botão direito no
-     arquivo e escolha <b>Abrir</b>. Windows: <b>Mais informações → Executar
-     assim mesmo</b>.</p>
+  <p class="detalhe">macOS: descompacte e, na primeira vez, clique com o botão
+     direito no aplicativo e escolha <b>Abrir</b>. Windows: <b>Mais informações
+     → Executar assim mesmo</b>. Linux: <code>tar -xzf</code> e execute pelo
+     terminal.</p>
   <p class="outras" id="arquivos">
-    <a href="download/tibiame-bot-macos" download>macOS</a><span>·</span>
+    <a href="download/tibiame-bot-macos.zip" download>macOS</a><span>·</span>
     <a href="download/tibiame-bot.exe" download>Windows</a><span>·</span>
-    <a href="download/tibiame-bot-linux" download>Linux</a>
+    <a href="download/tibiame-bot-linux.tar.gz" download>Linux</a>
   </p>
 
   <h2>depois de baixar</h2>
@@ -147,10 +148,14 @@ footer p{margin:0 0 5px}
    e a unica saida: os tres arquivos continuam listados logo abaixo, e sem
    javascript o botao segue valendo -- so leva para a pagina do Release. */
 (function(){
+  // OS FORMATOS NAO SAO CAPRICHO. Download por HTTP nao carrega permissao de
+  // arquivo: binario solto chega sem o bit de execucao e o sistema o abre como
+  // texto. O .zip (com um .app dentro) e o .tar.gz preservam a permissao; o
+  // .exe do Windows nao precisa, porque roda pela extensao.
   const ARQUIVO = {
-    mac:   ['macOS',   'tibiame-bot-macos'],   // universal: arm64 + intel
+    mac:   ['macOS',   'tibiame-bot-macos.zip'],      // .app universal
     win:   ['Windows', 'tibiame-bot.exe'],
-    linux: ['Linux',   'tibiame-bot-linux'],
+    linux: ['Linux',   'tibiame-bot-linux.tar.gz'],
   };
   const p = ((navigator.userAgentData && navigator.userAgentData.platform)
              || navigator.platform || navigator.userAgent || '').toLowerCase();

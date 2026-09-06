@@ -41,9 +41,16 @@ aponta para eles por caminho relativo, e o GitHub Pages os serve direto.
 
 | sistema | arquivo |
 | --- | --- |
-| macOS | `download/tibiame-bot-macos` (universal: Apple Silicon + Intel) |
+| macOS | `download/tibiame-bot-macos.zip` — um `.app` universal (Apple Silicon + Intel) |
 | Windows | `download/tibiame-bot.exe` |
-| Linux | `download/tibiame-bot-linux` |
+| Linux | `download/tibiame-bot-linux.tar.gz` |
+
+> **Por que compactado, e não o binário solto.** Download por HTTP não carrega
+> permissão de arquivo. O binário cru chega **sem o bit de execução** e, no
+> macOS, sem extensão — então o sistema faz a única coisa que pode e abre no
+> editor de texto. Foi exatamente o que aconteceu no primeiro teste. O `.zip`
+> (com um `.app` dentro) e o `.tar.gz` preservam a permissão. O `.exe` do
+> Windows dispensa embrulho, porque roda pela extensão.
 
 Saem de `tibiame-bot/instalador/construir.sh`, em `saida/`. Publicar versão
 nova é copiar por cima, atualizar a linha da versão no `index.html` e dar push.
