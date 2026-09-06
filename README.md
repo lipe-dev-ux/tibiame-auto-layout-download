@@ -1,4 +1,4 @@
-# tibiame-site
+# tibiame-auto-layout-download
 
 A página de download do tibiame-bot. **Público de propósito** — aqui não há nada
 do produto, só a casca que entrega o instalador.
@@ -22,7 +22,7 @@ a página instrui o instalador a fazer.
    ```
 
    ```bash
-   git remote add origin git@github.com:lipe-dev-ux/tibiame-site.git
+   git remote add origin git@github.com:lipe-dev-ux/tibiame-auto-layout-download.git
    ```
 
    ```bash
@@ -31,42 +31,46 @@ a página instrui o instalador a fazer.
 
 3. No repositório: *Settings → Pages → Source: Deploy from a branch → main / (root)*.
 
-   Fica no ar em `https://lipe-dev-ux.github.io/tibiame-site/` em um ou dois
+   Fica no ar em `https://lipe-dev-ux.github.io/tibiame-auto-layout-download/` em um ou dois
    minutos.
 
 ## O instalador
 
-Sobe como **Release** deste mesmo repositório, e não como arquivo commitado:
-binário no histórico do git incha o repositório para sempre, e cada versão nova
-o incharia de novo.
-
-*Releases → Draft a new release*, anexe os arquivos, publique.
-
-São **três arquivos por Release**, com nomes fixos — a página aponta para eles
-pelo nome:
+Os três binários ficam em `download/`, **commitados no repositório**. A página
+aponta para eles por caminho relativo, e o GitHub Pages os serve direto.
 
 | sistema | arquivo |
 | --- | --- |
-| macOS | `tibiame-bot.dmg` |
-| Windows | `tibiame-bot.exe` |
-| Linux | `tibiame-bot.AppImage` |
+| macOS | `download/tibiame-bot-macos` (universal: Apple Silicon + Intel) |
+| Windows | `download/tibiame-bot.exe` |
+| Linux | `download/tibiame-bot-linux` |
 
-O link é sempre `releases/latest/download/<arquivo>`: o GitHub resolve sozinho
-para a versão mais recente, então a página **não muda a cada Release**. Em troca,
-o nome do arquivo tem de ser sempre o mesmo — se um Release chamar o instalador
-de `tibiame-bot-1.1.dmg`, o link da página quebra em silêncio.
+Saem de `tibiame-bot/instalador/construir.sh`, em `saida/`. Publicar versão
+nova é copiar por cima, atualizar a linha da versão no `index.html` e dar push.
 
-> **Enquanto só existir um sistema pronto.** O botão aponta para a página do
-> Release, que lista o que existe. Um link para arquivo que não foi anexado dá
-> 404 — então só publique o Release com os três, ou apague da página as
-> plataformas que ainda não têm binário.
+> **O preço de guardá-los aqui.** O git nunca esquece: cada versão soma ~23 MB
+> ao histórico **para sempre**, mesmo depois de substituída. Dez versões são
+> ~230 MB que todo clone passa a baixar, e o GitHub Pages tem teto de 1 GB de
+> site. O jeito de não pagar isso é anexar os binários a um **Release** — que
+> não é CDN nem custa nada, é o mesmo GitHub, e fica fora do histórico. Se um
+> dia trocar, os links viram
+> `https://github.com/lipe-dev-ux/tibiame-auto-layout-download/releases/latest/download/<arquivo>`
+> e a pasta `download/` sai do repositório.
 
-### Qual botão o visitante vê
+> **Eles não são assinados.** O macOS barra o primeiro arranque com "cannot be
+> opened because the developer cannot be verified", e o Windows mostra a tela
+> azul do SmartScreen. A página já explica o contorno — botão direito → Abrir,
+> e "Mais informações → Executar assim mesmo". Resolver de verdade custa uma
+> conta Apple Developer (99 USD/ano, com notarização) e um certificado de code
+> signing para Windows. Vale decidir isso antes de vender, não depois do
+> primeiro comprador desistir na tela de aviso.
 
-O HTML traz o botão genérico apontando para a **página** do Release, e um
-javascript o troca pelo arquivo do sistema de quem chegou. É palpite, e por isso
-nunca é a única saída: os três arquivos ficam listados logo abaixo, e sem
-javascript o botão continua funcionando.
+### `.nojekyll`
+
+O Pages roda Jekyll por padrão, e Jekyll tem regras próprias sobre quais
+arquivos publica. O `.nojekyll` na raiz desliga esse processamento e faz o site
+ser servido como ele é — sem isso, arquivo em `download/` pode simplesmente não
+aparecer, e o 404 não explica por quê.
 
 ## O que trocar antes de publicar
 
@@ -79,8 +83,9 @@ O `index.html` tem quatro marcas `TROCAR`:
 | — | o `<title>` e o nome, se o produto for rebatizado |
 
 Os links do Release já estão escritos com o seu usuário (`lipe-dev-ux`) e o nome
-`tibiame-site`. Se o repositório tiver outro nome, troque nos quatro lugares —
-o botão, os três links de plataforma e o javascript no fim do arquivo.
+`tibiame-auto-layout-download`. Se um dia o repositório for renomeado, o endereço
+aparece em **cinco** lugares do `index.html`: o botão, os três links de
+plataforma e o javascript no fim do arquivo.
 
 ## O que não vai aqui
 

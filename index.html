@@ -84,19 +84,24 @@ footer p{margin:0 0 5px}
   <p class="linha-um">O instalador pede a sua chave, baixa o programa e abre o
      painel no navegador.</p>
 
-  <!-- O QUE ESTA NO HTML E O CAMINHO QUE NUNCA FALHA: a pagina do Release, que
-       lista os tres arquivos. O javascript abaixo troca isto pelo arquivo do
+  <!-- O QUE ESTA NO HTML E O CAMINHO QUE NUNCA FALHA: um pulo para a lista dos
+       tres arquivos, logo abaixo. O javascript troca isto pelo arquivo do
        sistema de quem chegou -- mas se ele nao rodar, ou se o palpite estiver
-       errado, o visitante ainda cai numa pagina com todas as opcoes. Rotulo que
-       promete um sistema so foi o defeito anterior: o produto serve os tres. -->
-  <a class="baixar" id="b-baixar"
-     href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest">Baixar o instalador</a>
+       errado, o visitante ainda alcanca todas as opcoes. Rotulo que promete um
+       sistema so foi o defeito anterior: o produto serve os tres. -->
+  <a class="baixar" id="b-baixar" href="#arquivos">Baixar o instalador</a>
   <!-- TROCAR: versao e tamanho a cada Release -->
   <p class="detalhe">versão 1.0.0 · requer Docker Desktop</p>
-  <p class="outras">
-    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.dmg">macOS</a><span>·</span>
-    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.exe">Windows</a><span>·</span>
-    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.AppImage">Linux</a>
+  <!-- ENQUANTO O BINARIO NAO FOR ASSINADO, o sistema barra o primeiro
+       arranque. Esconder isso nao evita o problema -- so faz o comprador achar
+       que baixou algo quebrado. Quando houver assinatura, apague este bloco. -->
+  <p class="detalhe">macOS: na primeira vez, clique com o botão direito no
+     arquivo e escolha <b>Abrir</b>. Windows: <b>Mais informações → Executar
+     assim mesmo</b>.</p>
+  <p class="outras" id="arquivos">
+    <a href="download/tibiame-bot-macos" download>macOS</a><span>·</span>
+    <a href="download/tibiame-bot.exe" download>Windows</a><span>·</span>
+    <a href="download/tibiame-bot-linux" download>Linux</a>
   </p>
 
   <h2>depois de baixar</h2>
@@ -119,7 +124,7 @@ footer p{margin:0 0 5px}
     <div><b>Sistema</b>macOS, Windows ou Linux</div>
     <div><b>Docker Desktop</b>gratuito, instalado por você</div>
     <div><b>Memória</b>cerca de 700 MB por conta ligada</div>
-    <div><b>Internet</b>o cliente do jogo é baixado na instalação</div>
+    <div><b>Download</b>cerca de 1,7 GB na primeira instalação</div>
   </div>
 
   <div class="nota">
@@ -143,9 +148,9 @@ footer p{margin:0 0 5px}
    javascript o botao segue valendo -- so leva para a pagina do Release. */
 (function(){
   const ARQUIVO = {
-    mac:   ['macOS',   'tibiame-bot.dmg'],
+    mac:   ['macOS',   'tibiame-bot-macos'],   // universal: arm64 + intel
     win:   ['Windows', 'tibiame-bot.exe'],
-    linux: ['Linux',   'tibiame-bot.AppImage'],
+    linux: ['Linux',   'tibiame-bot-linux'],
   };
   const p = ((navigator.userAgentData && navigator.userAgentData.platform)
              || navigator.platform || navigator.userAgent || '').toLowerCase();
@@ -160,7 +165,10 @@ footer p{margin:0 0 5px}
   const [nome, arquivo] = ARQUIVO[qual];
   const b = document.getElementById('b-baixar');
   b.textContent = 'Baixar para ' + nome;
-  b.href = 'https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/' + arquivo;
+  // Caminho RELATIVO: os arquivos moram no proprio repositorio da pagina, e
+  // assim o link continua valendo se o site mudar de endereco.
+  b.href = 'download/' + arquivo;
+  b.setAttribute('download', '');
 })();
 </script>
 
