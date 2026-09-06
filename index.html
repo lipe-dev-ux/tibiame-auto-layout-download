@@ -35,6 +35,11 @@ h1{margin:0 0 14px;font-size:27px;line-height:1.3;color:var(--ouro-claro);
   background:var(--pedra2)}
 .baixar:hover{background:var(--ouro);color:var(--trilho)}
 .detalhe{margin:12px 0 0;font-size:12px;color:var(--apagado)}
+.outras{margin:14px 0 0;font-size:12.5px;color:var(--apagado)}
+.outras a{color:var(--fraco);text-decoration:none;
+  border-bottom:1px solid var(--ouro-esc)}
+.outras a:hover{color:var(--ouro-claro);border-bottom-color:var(--ouro)}
+.outras span{margin:0 7px;color:var(--trilho)}
 
 h2{margin:44px 0 6px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
   color:var(--ouro);font-weight:600}
@@ -79,13 +84,20 @@ footer p{margin:0 0 5px}
   <p class="linha-um">O instalador pede a sua chave, baixa o programa e abre o
      painel no navegador.</p>
 
-  <!-- TROCAR: o href aponta para o arquivo do Release deste repositorio.
-       Ex.: https://github.com/USUARIO/tibiame-site/releases/latest/download/tibiame-bot.dmg
-       Usar `releases/latest/download/` faz o link NAO precisar de atualizacao
-       a cada versao nova -- o GitHub resolve para a mais recente sozinho. -->
-  <a class="baixar" href="#">Baixar para macOS</a>
-  <!-- TROCAR: versao, tamanho e data a cada Release -->
-  <p class="detalhe">versão 1.0.0 · 4 MB · requer Docker Desktop</p>
+  <!-- O QUE ESTA NO HTML E O CAMINHO QUE NUNCA FALHA: a pagina do Release, que
+       lista os tres arquivos. O javascript abaixo troca isto pelo arquivo do
+       sistema de quem chegou -- mas se ele nao rodar, ou se o palpite estiver
+       errado, o visitante ainda cai numa pagina com todas as opcoes. Rotulo que
+       promete um sistema so foi o defeito anterior: o produto serve os tres. -->
+  <a class="baixar" id="b-baixar"
+     href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest">Baixar o instalador</a>
+  <!-- TROCAR: versao e tamanho a cada Release -->
+  <p class="detalhe">versão 1.0.0 · requer Docker Desktop</p>
+  <p class="outras">
+    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.dmg">macOS</a><span>·</span>
+    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.exe">Windows</a><span>·</span>
+    <a href="https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.AppImage">Linux</a>
+  </p>
 
   <h2>depois de baixar</h2>
   <p class="sub">três passos, uma vez só</p>
@@ -119,9 +131,38 @@ footer p{margin:0 0 5px}
 
 <footer><div class="faixa">
   <p>tibiame-bot não é afiliado à CipSoft nem ao TibiaME.</p>
-  <!-- TROCAR: seu e-mail de suporte -->
+  <!-- O e-mail de suporte entra quando houver quem responda. Endereco publicado
+       sem ninguem do outro lado e pior que endereco nenhum.
   <p>Suporte: <a href="mailto:SEU-EMAIL@exemplo.com">SEU-EMAIL@exemplo.com</a></p>
+  -->
 </div></footer>
+
+<script>
+/* O BOTAO APONTA PARA O SISTEMA DE QUEM CHEGOU. Palpite, e por isso ele nunca
+   e a unica saida: os tres arquivos continuam listados logo abaixo, e sem
+   javascript o botao segue valendo -- so leva para a pagina do Release. */
+(function(){
+  const ARQUIVO = {
+    mac:   ['macOS',   'tibiame-bot.dmg'],
+    win:   ['Windows', 'tibiame-bot.exe'],
+    linux: ['Linux',   'tibiame-bot.AppImage'],
+  };
+  const p = ((navigator.userAgentData && navigator.userAgentData.platform)
+             || navigator.platform || navigator.userAgent || '').toLowerCase();
+  // Android antes de linux: todo Android diz "linux" no user agent, e um
+  // AppImage nao serve para ele. Sem sistema reconhecido, nao se chuta.
+  const qual = /android|iphone|ipad/.test(p) ? null
+             : /mac/.test(p)   ? 'mac'
+             : /win/.test(p)   ? 'win'
+             : /linux|x11/.test(p) ? 'linux'
+             : null;
+  if(!qual) return;
+  const [nome, arquivo] = ARQUIVO[qual];
+  const b = document.getElementById('b-baixar');
+  b.textContent = 'Baixar para ' + nome;
+  b.href = 'https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/' + arquivo;
+})();
+</script>
 
 </body>
 </html>

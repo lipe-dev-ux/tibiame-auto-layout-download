@@ -40,16 +40,33 @@ Sobe como **Release** deste mesmo repositório, e não como arquivo commitado:
 binário no histórico do git incha o repositório para sempre, e cada versão nova
 o incharia de novo.
 
-*Releases → Draft a new release*, anexe o arquivo, publique. O link da página
-já está escrito como:
+*Releases → Draft a new release*, anexe os arquivos, publique.
 
-```
-https://github.com/lipe-dev-ux/tibiame-site/releases/latest/download/tibiame-bot.dmg
-```
+São **três arquivos por Release**, com nomes fixos — a página aponta para eles
+pelo nome:
 
-`releases/latest/download/` faz o GitHub resolver sozinho para a versão mais
-recente — o link na página **não precisa mudar a cada Release**. O nome do
-arquivo, sim, precisa ser sempre o mesmo.
+| sistema | arquivo |
+| --- | --- |
+| macOS | `tibiame-bot.dmg` |
+| Windows | `tibiame-bot.exe` |
+| Linux | `tibiame-bot.AppImage` |
+
+O link é sempre `releases/latest/download/<arquivo>`: o GitHub resolve sozinho
+para a versão mais recente, então a página **não muda a cada Release**. Em troca,
+o nome do arquivo tem de ser sempre o mesmo — se um Release chamar o instalador
+de `tibiame-bot-1.1.dmg`, o link da página quebra em silêncio.
+
+> **Enquanto só existir um sistema pronto.** O botão aponta para a página do
+> Release, que lista o que existe. Um link para arquivo que não foi anexado dá
+> 404 — então só publique o Release com os três, ou apague da página as
+> plataformas que ainda não têm binário.
+
+### Qual botão o visitante vê
+
+O HTML traz o botão genérico apontando para a **página** do Release, e um
+javascript o troca pelo arquivo do sistema de quem chegou. É palpite, e por isso
+nunca é a única saída: os três arquivos ficam listados logo abaixo, e sem
+javascript o botão continua funcionando.
 
 ## O que trocar antes de publicar
 
@@ -57,10 +74,13 @@ O `index.html` tem quatro marcas `TROCAR`:
 
 | onde | o quê |
 | --- | --- |
-| botão de baixar | o link do Release |
-| linha abaixo do botão | versão, tamanho e data |
-| rodapé | o e-mail de suporte |
+| linha abaixo do botão | a versão, a cada Release |
+| rodapé | o e-mail de suporte — está **comentado**, descomente quando houver quem responda |
 | — | o `<title>` e o nome, se o produto for rebatizado |
+
+Os links do Release já estão escritos com o seu usuário (`lipe-dev-ux`) e o nome
+`tibiame-site`. Se o repositório tiver outro nome, troque nos quatro lugares —
+o botão, os três links de plataforma e o javascript no fim do arquivo.
 
 ## O que não vai aqui
 
