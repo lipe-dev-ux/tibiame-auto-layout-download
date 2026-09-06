@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tibiame-bot — download</title>
+<meta name="description" content="Baixe o instalador do tibiame-bot.">
+<style>
+/* A MESMA PALETA DO PAINEL. Quem baixa aqui abre o produto em seguida; duas
+   linguagens visuais fariam parecer que o que se baixou nao e o que se viu. */
+:root{
+  --pedra:#1b1712; --pedra2:#241e17; --painel:#15120e; --trilho:#0d0b08;
+  --ouro:#c9a227; --ouro-esc:#7a5f16; --ouro-claro:#f0d97a;
+  --texto:#e6dcc4; --fraco:#8c8069; --apagado:#5a5142;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--painel);color:var(--texto);
+  font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;
+  display:flex;flex-direction:column;min-height:100vh}
+a{color:var(--ouro-claro)}
+.faixa{width:100%;max-width:660px;margin:0 auto;padding:0 22px}
+
+header{border-bottom:1px solid var(--ouro-esc);background:var(--pedra2);
+  padding:12px 0}
+header b{color:var(--ouro);letter-spacing:2px;text-transform:uppercase;
+  font-size:14px}
+
+main{flex:1;padding:56px 0 40px}
+h1{margin:0 0 14px;font-size:27px;line-height:1.3;color:var(--ouro-claro);
+  font-weight:600}
+.linha-um{margin:0 0 34px;color:var(--fraco)}
+
+.baixar{display:inline-block;padding:13px 32px;text-decoration:none;
+  font-size:15px;border:1px solid var(--ouro);color:var(--ouro-claro);
+  background:var(--pedra2)}
+.baixar:hover{background:var(--ouro);color:var(--trilho)}
+.detalhe{margin:12px 0 0;font-size:12px;color:var(--apagado)}
+
+h2{margin:44px 0 6px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ouro);font-weight:600}
+.sub{margin:0 0 20px;color:var(--apagado);font-size:13px}
+
+ol{margin:0;padding:0;list-style:none;counter-reset:p}
+ol li{counter-increment:p;position:relative;padding:0 0 20px 42px;
+  border-left:1px solid var(--ouro-esc);margin-left:13px}
+ol li:last-child{border-left-color:transparent;padding-bottom:0}
+ol li::before{content:counter(p);position:absolute;left:-13px;top:-2px;
+  width:26px;height:26px;line-height:24px;text-align:center;font-size:12px;
+  background:var(--pedra2);border:1px solid var(--ouro-esc);color:var(--ouro)}
+ol b{display:block;color:var(--texto);font-weight:600;font-size:14px;
+  margin-bottom:2px}
+ol span{color:var(--fraco);font-size:13.5px}
+
+.exige{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.exige div{background:var(--pedra);border:1px solid var(--ouro-esc);
+  padding:12px 15px;font-size:13px;color:var(--fraco)}
+.exige b{display:block;color:var(--texto);font-size:13px;margin-bottom:2px}
+
+/* O AVISO DA CHAVE FICA NA PAGINA, e nao so no e-mail da compra. Quem baixa
+   sem saber que precisa do Docker, ou sem saber o que a chave cobre, volta
+   como pedido de reembolso. */
+.nota{background:var(--pedra);border-left:2px solid var(--ouro);
+  padding:14px 18px;color:var(--fraco);font-size:13.5px;margin-top:26px}
+.nota b{color:var(--ouro-claro)}
+
+footer{border-top:1px solid var(--trilho);padding:22px 0 34px;
+  color:var(--apagado);font-size:12px}
+footer p{margin:0 0 5px}
+
+@media (max-width:520px){ main{padding:38px 0 30px} h1{font-size:22px} }
+</style>
+</head>
+<body>
+
+<header><div class="faixa"><b>tibiame-bot</b></div></header>
+
+<main><div class="faixa">
+  <h1>Baixar o instalador</h1>
+  <p class="linha-um">O instalador pede a sua chave, baixa o programa e abre o
+     painel no navegador.</p>
+
+  <!-- TROCAR: o href aponta para o arquivo do Release deste repositorio.
+       Ex.: https://github.com/USUARIO/tibiame-site/releases/latest/download/tibiame-bot.dmg
+       Usar `releases/latest/download/` faz o link NAO precisar de atualizacao
+       a cada versao nova -- o GitHub resolve para a mais recente sozinho. -->
+  <a class="baixar" href="#">Baixar para macOS</a>
+  <!-- TROCAR: versao, tamanho e data a cada Release -->
+  <p class="detalhe">versão 1.0.0 · 4 MB · requer Docker Desktop</p>
+
+  <h2>depois de baixar</h2>
+  <p class="sub">três passos, uma vez só</p>
+  <ol>
+    <li><b>Instale o Docker Desktop</b>
+        <span>Gratuito, em <a href="https://www.docker.com/products/docker-desktop/"
+              rel="noopener">docker.com</a>. É o que roda o cliente do jogo
+              isolado, sem bagunçar a sua máquina.</span></li>
+    <li><b>Abra o aplicativo e cole a sua chave</b>
+        <span>Ela chega por e-mail depois da compra. Só é pedida nesta primeira
+              vez.</span></li>
+    <li><b>Cadastre o personagem</b>
+        <span>Nome, mundo e senha. Ele entra no jogo e começa.</span></li>
+  </ol>
+
+  <h2>requisitos</h2>
+  <p class="sub">confira antes de baixar</p>
+  <div class="exige">
+    <div><b>Sistema</b>macOS, Windows ou Linux</div>
+    <div><b>Docker Desktop</b>gratuito, instalado por você</div>
+    <div><b>Memória</b>cerca de 700 MB por conta ligada</div>
+    <div><b>Internet</b>o cliente do jogo é baixado na instalação</div>
+  </div>
+
+  <div class="nota">
+    <b>Sobre a chave.</b> Ela libera o download e as atualizações enquanto a sua
+    assinatura estiver válida. O que você já instalou continua funcionando; o que
+    uma chave vencida deixa de dar são as versões novas.
+  </div>
+</div></main>
+
+<footer><div class="faixa">
+  <p>tibiame-bot não é afiliado à CipSoft nem ao TibiaME.</p>
+  <!-- TROCAR: seu e-mail de suporte -->
+  <p>Suporte: <a href="mailto:SEU-EMAIL@exemplo.com">SEU-EMAIL@exemplo.com</a></p>
+</div></footer>
+
+</body>
+</html>
